@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import coupons
+from .models import copons
 
 # Register your models here.
-admin.site.register(coupons)
+admin.site.register(copons)

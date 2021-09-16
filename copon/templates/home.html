@@ -27,8 +27,8 @@
                                 <h5 class="card-title">{{i.title}}</h5>
                                  <p class="card-title">{{i.ID}}</p>
                                  <p class="card-text">{{i.url}}</p>
-                                 <a href="sendsms.html" class="btn btn-primary">SEND EMAIL</a>
-                                 <a href="{% url 'sendsms' %}?coupen_id={{i.ID}}" class="btn btn-primary">SEND SMS</a>
+                               <a href="{% url 'smsdatabase' %}?coupen_id={{i.ID}}" class="btn btn-primary">SEND EMAIL</a>
+                                 <a href="{% url 'smsdatabasedone' %}?coupen_id={{i.ID}}" class="btn btn-primary">SEND SMS</a>
                             </div>
                        </div>
                     </div>

@@ -1,17 +1,17 @@
 from django.db import models
+from django.db import connections
 
 
-# Create your models here.
 
-class coupons(models.Model):
-      ID=models.CharField(max_length=100)
-      code=models.CharField(max_length=100)
-      url=models.URLField(max_length=100)
-      subaccount=models.CharField(max_length=100)
-      title=models.CharField(max_length=100)
-      subtitle=models.CharField(max_length=100)
 
-      def __str__(self):
-        return self.url
+#Create your models here.
+
+class copons(models.Model):
+     cname =models.CharField(max_length=10, blank=True)
+     cnumber =models.CharField(max_length=14)
+    
+    
+     class Meta:
+        db_table = "phonenumberlist"
 
 

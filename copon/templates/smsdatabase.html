@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>smsdatabase</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+</head>
+<body>
+  <form action="{% url 'smsdatabasedone'%}" method="post"   >
+<div class="container">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>cnumber</th>
+		
+      </tr>
+    </thead>
+    <tbody>
+	{% for i in copons %}  
+      <tr>
+        <td>{{i.cnumber}}</td>
+         </tr>
+	  {% endfor %} 
+	</tbody>
+</table>	
+</div>
+</body>
+</html>
