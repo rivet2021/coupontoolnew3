@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-1e8k-*%vh&!ln1kt#kx_3*^n=k=$=2$5&l3pcb$8i!gg#!$-y_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS =['*'] 
+ALLOWED_HOSTS =['coupontool.herokuapp.com'] 
 
 # Application definition
 
@@ -81,11 +82,11 @@ WSGI_APPLICATION = 'coupontool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'copons',
-        'USER': 'root',
-        'PASSWORD':'Rivet123@',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': 'd5lve3dig2vmu8',
+        'USER': 'ayohyidawjhwbr',
+        'PASSWORD':'fed3e450e13c99a83cae9fdfc376f169780766c4d9cd0614d4486dde7a277ae5',
+        'HOST': 'ec2-44-198-151-32.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -129,6 +130,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 STATIC_URL = '/static/'
+
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
