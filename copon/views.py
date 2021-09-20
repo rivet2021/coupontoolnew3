@@ -67,8 +67,22 @@ def smsdatabasedone(request):
          #return render(request,"smsdatabase.html",{'copons':phonenumberlist})
 #@csrf_exempt 
 
-#def smsdone(request):
-  
+  wb = openpyxl.load_workbook(excel_file)
+worksheet = wb["Sheet1"]
+ for row in worksheet.iter_rows():
+  for cell in row:
+    payload = json.dumps({
+    "client_id": "6384889747946715134741991478448",
+    "client_secret": "Pnhughk8ZhTJGxQkyhtc95TUVgPMtuE",
+    "campaign": cam_id,
+    "phone": cell.value,
+    "sender": "APPOTP"
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Cookie': 'PHPSESSID=6b8d40e13338ebdda12d3da572707bba'
+    }
+
  #excel_file = request.FILES["file"]
 # cam_id=request.POST.get('cam_id')
 #  url = "https://api4coupons.com/v3/send/sms"
