@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
+from django.core.management.utils import get_random_secret_key
+import dj_database_url
+import sys
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,12 +26,41 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1e8k-*%vh&!ln1kt#kx_3*^n=k=$=2$5&l3pcb$8i!gg#!$-y_'
+
+
+SECRET_KEY = os.getenv("django-insecure-1e8k-*%vh&!ln1kt#kx_3*^n=k=$=2$5&l3pcb$8i!gg#!$-y_", get_random_secret_key())
+#SECRET_KEY = 'django-insecure-1e8k-*%vh&!ln1kt#kx_3*^n=k=$=2$5&l3pcb$8i!gg#!$-y_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS =[ ]    
+ALLOWED_HOSTS = os.getenv("128.199.10.79", "127.0.0.1,localhost").split(",")
+
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+
+
+
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'copons',
+        'USER': 'root',
+        'PASSWORD': 'Rivet123@',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
+
+#ALLOWED_HOSTS =[ ]    
 #ALLOWED_HOSTS =['coupontool.herokuapp.com']    
 
 # Application definition
@@ -81,22 +113,22 @@ WSGI_APPLICATION = 'coupontool.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'copons',
-        'USER': 'root',
-        'PASSWORD': 'Rivet123@',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#       'NAME': 'copons',
+#        'USER': 'root',
+#        'PASSWORD': 'Rivet123@',
+#        'HOST': '127.0.0.1',
+#        'PORT': '3306',
+#    }
+#}
 
 #DATABASES = {
- # 'default': {
-  #    'ENGINE': 'django.db.backends.sqlite3',
-   #    'NAME' : os.path.join(BASE_DIR,'templates'),
- # }
+#  'default': {
+#      'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME' : os.path.join(BASE_DIR,'templates'),
+#  }
 #}
 
 
@@ -148,10 +180,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-#STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 STATIC_URL = "/static/"
 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 #django_heroku.settings(locals())
 
 # Default primary key field type
