@@ -16,6 +16,9 @@ import os
 from django.core.management.utils import get_random_secret_key
 import dj_database_url
 import sys
+from dotenv import load_dotenv
+load_dotenv()
+
 #import portalocker
 
 
@@ -32,7 +35,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-SECRET_KEY = 'django-insecure-1e8k-*%vh&!ln1kt#kx_3*^n=k=$=2$5&l3pcb$8i!gg#!$-y_'
+#SECRET_KEY = 'django-insecure-1e8k-*%vh&!ln1kt#kx_3*^n=k=$=2$5&l3pcb$8i!gg#!$-y_'
+
+SECRET_KEY = os.getenv('SECRET_KEY ', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,29 +45,34 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
+
+
+
+# db.HOSTNAME = os.getenv('SOMETHING_MYSQL_HOST', 'mysql')
+# db.PORT = os.getenv('SOMETHING_MYSQL_PORT', 3306)   
+# db.NAME =_require_env('copons')        
+# db.USERNAME = _require_env('root')             
+# db.PASSWORD = _require_env('Rivet123@')
+
+# DATABASES = {'default': {'ENGINE': 'django.db.backends.mysql',
+#                      'NAME':db.NAME ,                    
+#                      'HOST': db.HOSTNAME,                    
+#                      'PORT': db.PORT,                    
+#                      'USER': db.USERNAME,                    
+#                      'PASSWORD': db.PASSWORD,
+#     … } }
+
 DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.mysql'),
-        'NAME': os.environ.get('SQL_DATABASE', os.path.join(BASE_DIR, 'copons')),
-        'USER': os.environ.get('SQL_USER', 'root'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'Rivet123@'),
-        'HOST': os.environ.get('SQL_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('SQL_PORT', '3306'),
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': os.environ.get('NAME'),
+       'USER': os.environ.get('USER'),
+       'PASSWORD': os.environ.get('PASSWORD'),
+       'HOST': os.environ.get( 'HOST'),
+       'PORT': os.environ.get('PORT'),
+   }
 }
-
-
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'copons',
-#        'USER': 'root',
-#        'PASSWORD': 'Rivet123@',
-#        'HOST': '127.0.0.1',
-#        'PORT': '3306',
- #   }
-#}
 
 
 
@@ -138,16 +148,7 @@ WSGI_APPLICATION = 'coupontool.wsgi.application'
 #}
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'd5lve3dig2vmu8',
-#        'USER': 'ayohyidawjhwbr',
-#        'PASSWORD':'fed3e450e13c99a83cae9fdfc376f169780766c4d9cd0614d4486dde7a277ae5',
-#        'HOST': 'ec2-44-198-151-32.compute-1.amazonaws.com',
-#        'PORT': '5432',
- #   }
-#}
+
 
 
 # Password validation
