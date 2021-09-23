@@ -40,25 +40,17 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.mysql'),
+        'NAME': os.environ.get('SQL_DATABASE', os.path.join(BASE_DIR, 'copons')),
+        'USER': os.environ.get('SQL_USER', 'root'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', 'Rivet123@'),
+        'HOST': os.environ.get('SQL_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('SQL_PORT', '3306'),
+    }
+}
 
-if DEVELOPMENT_MODE is True:
-    DATABASES = {
-        "default": {
-            "ENGINE": 'django.db.backends.mysql',
-              "NAME": os.path.join(BASE_DIR, "db.mysql"),
-              'USER': 'root',
-          'PASSWORD': 'Rivet123@',
-              'HOST': '127.0.0.1',
-              'PORT': '3306',
-             }
-    }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
 
 
 #DATABASES = {
@@ -197,7 +189,7 @@ USE_TZ = True
 #STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
 
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 #django_heroku.settings(locals())
