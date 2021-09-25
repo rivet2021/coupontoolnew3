@@ -66,11 +66,11 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.mysql',
-       'NAME': os.environ.get('NAME'),
-       'USER': os.environ.get('USER'),
-       'PASSWORD': os.environ.get('PASSWORD'),
-       'HOST': os.environ.get( 'HOST'),
-       'PORT': os.environ.get('PORT'),
+       'NAME': 'defaultdb',
+       'USER': 'doadmin',
+       'PASSWORD': '1aN5niFmMQ0twHqU',
+       'HOST': 'mydb-do-user-9724253-0.b.db.ondigitalocean.com',
+       'PORT': '25060',
    }
 }
 
