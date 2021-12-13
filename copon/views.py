@@ -261,12 +261,6 @@ def landingcopon(request):
 
       })
      
-     
-         
-      
-      
-      
-
     
     return render(request,'landingcopon.html',)
 
