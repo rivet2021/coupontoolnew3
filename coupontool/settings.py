@@ -49,35 +49,22 @@ ALLOWED_HOSTS = ['*']
 
 
 
-# db.HOSTNAME = os.getenv('SOMETHING_MYSQL_HOST', 'mysql')
-# db.PORT = os.getenv('SOMETHING_MYSQL_PORT', 3306)   
-# db.NAME =_require_env('copons')        
-# db.USERNAME = _require_env('root')             
-# db.PASSWORD = _require_env('Rivet123@')
 
-# DATABASES = {'default': {'ENGINE': 'django.db.backends.mysql',
-#                      'NAME':db.NAME ,                    
-#                      'HOST': db.HOSTNAME,                    
-#                      'PORT': db.PORT,                    
-#                      'USER': db.USERNAME,                    
-#                      'PASSWORD': db.PASSWORD,
-#     … } }
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'defaultdb',
-       'USER': 'doadmin',
-       'PASSWORD': '1aN5niFmMQ0twHqU',
-       'HOST': 'mydb-do-user-9724253-0.b.db.ondigitalocean.com',
-       'PORT': '25060',
-   }
-}
+    # DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'defaultdb',
+    #     'USER': 'doadmin',
+    #     'PASSWORD': '1aN5niFmMQ0twHqU',
+    #     'HOST': 'mydb-do-user-9724253-0.b.db.ondigitalocean.com',
+    #     'PORT': '25060',
+    # }
+    # }
 
 
 
-#ALLOWED_HOSTS =[ ]    
-#ALLOWED_HOSTS =['coupontool.herokuapp.com']    
+ 
 
 # Application definition
 
@@ -85,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+   
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -97,6 +85,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware',
+   
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -129,23 +118,17 @@ WSGI_APPLICATION = 'coupontool.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#       'NAME': 'copons',
-#        'USER': 'root',
-#        'PASSWORD': 'Rivet123@',
-#        'HOST': '127.0.0.1',
-#        'PORT': '3306',
-#    }
-#}
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'copons',
+       'USER': 'root',
+       'PASSWORD': 'Rivet123@',
+       'HOST': '127.0.0.1',
+       'PORT': '3306',
+   }
+}
 
-#DATABASES = {
-#  'default': {
-#      'ENGINE': 'django.db.backends.sqlite3',
-#       'NAME' : os.path.join(BASE_DIR,'templates'),
-#  }
-#}
 
 
 
@@ -199,3 +182,8 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STRIPE_SECRET_KEY =get_env_variable('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = get_env_variable('STRIPE_PUBLISHABLE_KEY')
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"

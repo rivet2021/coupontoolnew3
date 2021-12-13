@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-compatible" content="IE-edge">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+         <title>REGISTER</title>
+</head>        
+ <body>
+
+
+    <div class="container mt-5 pt-5">
+        <h3>Register</h3>
+        <form   class="mx-auto" method="post" >
+            {% csrf_token %}
+            <div class="col-md-6 form-group">
+                <label>Enter username</label>
+                <input type="text" name="username" required class="form-control" placeholder="Enter username">
+                
+            </div>
+             
+            <div class="col-md-6 form-group">
+                <label>enter firstname</label>
+                <input type="text " name="first" required class="form-control" placeholder="enter firstname">
+                
+            </div>
+            
+
+            <div class="col-md-6 form-group">
+                <label>enter lastname</label>
+                <input type="text " name="last" required class="form-control" placeholder="enter lastname">
+                
+            </div>
+
+           
+
+
+
+            <div class="col-md-6 form-group">
+                <label>enter email id</label>
+                <input type="email " name="email" required class="form-control" placeholder="enter email id">
+                
+            </div>
+              
+           
+            <div class="col-md-6 form-group">
+                <label>Enter password</label>
+                <input type="password" name="password" required class="form-control" placeholder="Enter password">
+                
+            </div>
+            <div class="col-md-6 form-group mt-5">
+            <button class="btn btn-primary btn-block">REGISTER</button>
+        </div>
+        </form>
+    </div>

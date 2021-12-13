@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-compatible" content="IE-edge">
+        <script src="https://js.stripe.com/v3/"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+         <title>COUPON TOOL</title>
+</head>        
+ <body>
+  <nav class="navbar navbar-dark bg-primary shadow-lg p-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href=""><b>COUPONS</b></a>
+      <form class="form-inline">
+
+        {% if  request.user.is_authenticated and  request.session.prof  %}
+        <a href="{% url 'logout_account' %}" class="btn  btn-success mr-3"><b>LOGOUT</b></a>
+        <a href=" " class="btn  btn-info"><b>PRO MEMBER</b></a>
+        <a href="{% url 'unsubscribe' %}" class="btn  btn-danger"><b>UNSUBSCRIBE</b></a>
+        <a href="{% url 'home' %}" class="btn  btn-danger"><b>HOME</b></a>
+        
+              
+   {%elif request.user.is_authenticated and not request.session.prof%}
+       <a href="{% url 'logout_account' %}" class="btn  btn-success mr-2"><b>LOGOUT</b></a>
+ 
+       <a href="{% url 'subscribe' %}" class="btn  btn-danger"><b>SUBSCRIBE</b></a>
+  {%else%}
+  <a href="{% url 'login' %}" class="btn  btn-success mr-2"><b>LOGIN</b></a>
+  <a href="{% url 'registerattempt' %}" class="btn  btn-danger"><b>REGISTER</b></a>
+
+  {% endif%}
+    
+       
+         
+             
+
+         
+       
+            
+       
+       </form>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row">
+          <div class="col-lg-6">
+               <h3>
+                  WHY YOU NEED TO SUBSCRIBE?
+              </h3>
+              <P>Coupons in Stripe provide discounts on recurring charges. Like subscriptions,</P>
+              <p> coupons allow for great flexibility in how you define and use them. They can:</p>
+              <p> coupons allow for great flexibility in how you define and use them. They can:</p> 
+                  <form  action="{% url 'landing'%}"  method="POST">
+                      {% csrf_token %} 
+                      <div class="form-group">
+                          <label>
+                            <b> MEMBERSHIP TYPE</b> 
+                          </label>
+                          <select class="form-control" name="membership" required>
+                              <option>CHOOSE</option>
+                             
+                              <option value="MONTHLY"  >MONTHLY - 1000AED</option>
+                          
+                              <option value="YEARLY"  >YEARLY - 12000AED</option>
+                          </select>
+                       </div>
+                       <button type="submit" class="btn btn-primary mt-5">Checkout</button>
+                  </form>
+                  
+           
+               </div>  
+               <div class="col-lg-6">
+                <img src="https://academy.eazi-business.com/wp-content/uploads/2018/02/coupontools-product.jpg" style="max-width:50%;"class="img-responsive">
+            </div>
+           </div>
+          </div>
+        
+        
+        
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
+   
+  </body>
+       
+ </body>
+</html>

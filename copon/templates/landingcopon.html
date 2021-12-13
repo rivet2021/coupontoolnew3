@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script src="https://js.stripe.com/v3/"></script> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+    .payment-billing {
+        max-width: 880px;
+        padding: 52px 0 98px;
+        margin: auto;
+    }
+    .main-title {
+        text-align: center;
+        font: normal normal 800 32px/40px Gilroy-ExtraBold;
+        color: #023047;
+        margin-bottom: 45px;
+    }
+    .credit-amount {
+        max-width: 587px;
+        margin: auto;
+        padding: 52px 0 98px;
+    }
+    .payment-billing-details {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .details-container {
+        width: 50%;
+        background: #f8f8f8;
+        margin-bottom: 28px;
+    }
+    .details-container-left {
+        margin-right: 12px;
+    }
+    .detail-title {
+        background: #5baed8;
+        color: white;
+        padding: 11px 50px 10px;
+        border-radius: 5px;
+        font: normal normal 18px/21px Gilroy-Medium;
+    }
+    .detail-form {
+        padding: 24px 50px 20px;
+    }
+    .detail-form > div {
+        position: relative;
+    }
+    .detail-form label span {
+        color: #D2302C;
+    }
+    .detail-form label {
+        color: #023047;
+        width: 100%;
+        font-weight: 300;
+        margin-bottom: 8px;
+        font: normal normal 300 14px/16px Gilroy-Light;
+    }
+    .detail-form .select_arrow {
+        position: absolute;
+        transform: matrix(0, -1, 1, 0, 0, 0);
+        right: 24.38px;
+        bottom: 19px;
+        font-size: 16px;	
+    }
+    .detail-form input, .detail-form select {
+        width: 100%;
+        padding-left: 15px;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 12px;
+    }
+    .detail-form .credit-number {
+        position: relative;
+    }
+    .detail-form .credit-number img { 
+        position: absolute;
+        width: 65px;
+        right: 24.37px;
+        bottom: 22px;
+    }
+    .detail-form select {
+          padding-right: 35px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+    }
+    .detail-form input[type='checkbox'] {
+        width: 25px;
+        height: 25px;
+        margin-right: 7px;
+        margin-bottom: 0;
+    }
+    .checkboxbar {
+        display: flex;
+        place-items: center;
+        margin-bottom: 18spx;
+        margin-top: 25px;
+
+    }
+    .checkboxbar label {
+        margin-bottom: 0;
+    }
+    .detail-form .city-country,
+    .detail-form .state-postcode {
+        display: flex;
+        justify-content: space-between;
+    }
+    .detail-form .city-country > div,
+    .detail-form .state-postcode > div {
+        width: 100%;
+    }
+    .city-input, .state-input {
+        margin-right: 16px;
+    }
+    .detail-form-footer-txt {
+        font: normal normal 300 12px/14px Gilroy-Light;
+        color: #c4c4c4;
+    }
+    .purchase-button {
+        text-align: center;
+    }
+    .purchase-button button {
+        background: #D2302C 0% 0% no-repeat padding-box;
+        box-shadow: 0px 10px 20px #00000014;
+        border-radius: 5px;
+        color: white;
+        width: 380px;
+        height: 59px;
+        font: normal normal 24px/29px Gilroy-Medium;
+        transition: 0.3s all ease-in;
+    }
+    .purchase-button button:hover {
+        background: #ec625f;
+    }
+    
+     @media screen and (max-width: 768px) {
+        .payment-billing-details {
+            flex-direction: column;
+        }
+        .details-container-left {
+            margin-right: 0;
+        }
+        .details-container {
+            width: 100%;
+        }
+        .detail-form {
+            padding: 20px 0;
+        }
+        .purchase-button button {
+            width: 350px;
+            height: 50px;
+            font-size: 20px;
+        }
+        .smscard-header-main,
+        .smscard-footer-main {
+            width: 150px;
+        }
+        .payment-billing, .credit-amount {
+            padding-bottom: 50px;
+        }
+        .paypal, .credit-card-txt {
+            width: 180px;
+            height: 50px;
+        }
+        .credit-card-txt p {
+            font-size: 20px;
+        }
+    } 
+    @media screen and (max-width: 576px) {
+        .main-title {
+            font-size: 26px;
+            line-height: 30px;
+        }
+        .purchase-button button {
+            font-size: 16px;
+            width: 260px;
+            height: 42px;
+        }
+        .smscard-section, .smscard-footer {
+            padding: 0 10px;
+        }
+    }
+         
+               
+</style>
+</head>
+<body>
+
+<div class="payment-billing">
+
+                    
+					<form  action= "{% url 'successlanding'    %}"  method="POST" id="new_submission" >
+                        {%csrf_token%}
+                    
+                        <input type="hidden"   name="paymentstatus" id="paymentstatus" value="{{paymentstatus}}"> 
+                        <input type="hidden" name="payment" id="payment"  value="{{payment}}">
+                        
+						<div class="title-container">
+							<p class="main-title">Please Confirm Payment and Billing Details</p>
+						</div>
+						<div class="payment-billing-details">
+							<div class="details-container details-container-left">
+								<div class="detail-title">
+									Payment Details
+								</div>
+								<div class="detail-form">
+									<div>
+										<label><span>*</span>Name on credit card</label>
+										<input type="text" id="cardname" name="cardname" value="{{cardname}}"  required maxlength="45" />
+									</div>
+                                    <div>
+										<label><span>*</span>Phone number</label>
+										<input type="number" id="phonenumber" name="phonenumber" value="{{phonenumber}}" />
+										</div>
+                                    <div>
+									<div class="credit_number" >
+										<label><span>*</span>Credit card number</label>
+                                        <div id="cardnum" ></div>
+										<!--input type="number" id="cardnum" name="cardnum"  /-->
+			                            </div>
+                                   
+									     <div>
+										<label><span>*</span>Card Expiration </label>
+                                        <div id="cardexp" ></div>
+                                        </div>
+
+                                        <td><br>
+									
+										<label><span>*</span>CVC</label>
+                                        <div id="cardcvc"></div>
+									</div>
+                                   
+									<div class="checkboxbar">
+										<input type="checkbox" name="save">
+										<label>Save my card info</label>
+									</div>
+                                
+									<div class="detail-form-footer-txt">
+										Only VISA and MasterCard are accepted
+									</div>
+								</div>
+							</div>
+							<div class="details-container">
+								<div class="detail-title">
+									Billing Details
+								</div>
+								<div class="detail-form">
+									<div>
+										<label><span>*</span>Name</label>
+										<input type="text" id="username" name="name" required maxlength="45" />
+									</div>
+									<div>
+										<label><span>*</span>Email</label>
+										<input type="email" id="email" name="email" required maxlength="45" pattern=".+@.+.com" />
+									</div>
+									<div>
+										<label><span>*</span>Address</label>
+										<input type="text" name="address" required maxlength="45" />
+									</div>
+									<div class="city-country">
+										<div class="city-input">
+											<label><span>*</span>City</label>
+											<input type="text"  id="city"name="city" required maxlength="45" />
+										</div>
+										<div class="country-input">
+											<label><span>*</span>Country</label>
+											<input type="text" id="country" name="country" required maxlength="45" />
+										</div>	
+									</div>
+									<div class="state-postcode">
+										<div class="state-input">
+											<label><span>*</span>State</label>
+											<input type="text" id="state" name="state" required maxlength="45" />
+										</div>
+										<div class="postcode-input">
+											<label><span>*</span>Postcode</label>
+											<input type="text" id="postcode" name="postcode" required maxlength="45" />
+										</div>	
+									</div>
+									<div class="checkboxbar">
+										<input type="checkbox" id="save" name="save">
+										<label>Save my billing info</label>
+									</div>
+								</div>
+							</div>
+						</div>
+                       
+                      
+						<div class="purchase-button">
+							<button type="submit" >Confirm Purchase of AED <span id="sms-value">20AED</span></button>
+						</div>
+					</form>
+                      
+           </div>
+       
+          <script>
+            const stripe=Stripe('pk_test_51IsmEKIhoVgdSGghqRp0nCpueflAtcwjtsKIUsOVlTiYa1810jjiUUMGgshYjCgh5mD7wVBBaqglj2U1TDDx2IJM00cxqN2Pyn')
+            const cardnum=document.querySelector('#cardnum')
+           const cardcvc=document.querySelector('#cardcvc')
+           const cardexp=document.querySelector('#cardexp')
+           //const btn=document.querySelector('button')
+           const mystyle = {
+            base: {
+              // Add your base input styles here. For example:
+              textAlign: 'center',
+              fontWeight: 400,
+        fontFamily: 'futurabold',
+        fontSize: '16px',
+        lineHeight: '2.6',
+        display: 'flex',
+        color: '#555',
+        backgroundColor: '#fff',
+        '::placeholder': {
+            color: '#888',
+            fontFamily: 'futurabold',
+              
+             
+            },
+        },
+          };
+
+
+
+          const cvcstyle = {
+            base: {
+              // Add your base input styles here. For example:
+              textAlign: 'center',
+              fontWeight: 400,
+        fontFamily: 'futurabold',
+        fontSize: '16px',
+        lineHeight: '2.6',
+        display: 'flex',
+        color: '#555',
+        backgroundColor: '#fff',
+        '::placeholder': {
+            color: '#888',
+            fontFamily: 'futurabold',
+            
+
+              
+             
+            },
+        },
+          };
+           
+
+          const expstyle = {
+            base: {
+              // Add your base input styles here. For example:
+              textAlign: 'center',
+              fontWeight: 400,
+        fontFamily: 'futurabold',
+        fontSize: '16px',
+        lineHeight: '2.6',
+        display: 'flex',
+        color: '#555',
+        backgroundColor: '#fff',
+        '::placeholder': {
+            color: '#888',
+            fontFamily: 'futurabold',
+              
+             
+            },
+        },
+          };
+           
+           
+           const elements=stripe.elements();
+
+    const CardNumberElement = elements.create('cardNumber',{showIcon:true,iconStyle:'solid', style: mystyle});
+    CardNumberElement.mount(cardnum);
+
+    const CardExpiryElement = elements.create('cardExpiry',{disabled:true,style:expstyle},);
+    CardExpiryElement.mount(cardexp);
+
+    const CardCvcElement=elements.create('cardCvc',{disabled:true,style:cvcstyle});
+    CardCvcElement.mount(cardcvc);
+    
+    CardNumberElement.on('change',(e) => {
+        if(e.complete){
+            CardExpiryElement.update({disabled:false})
+            CardExpiryElement.focus()
+
+        }
+     })
+    CardExpiryElement.on('change',(e) =>  {
+        if(e.complete){
+            CardCvcElement.update({disabled:false})
+            CardCvcElement.focus()
+
+        }
+    })
+
+    const form = document.querySelector('#new_submission');
+    let csrftoken = '{{ csrf_token }}'
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        fetch("{%url 'landingcopon'%}", {  
+            method:'POST', 
+        
+            headers:{'Content-Type':'application/json','X-CSRFToken':csrftoken},
+           
+            
+            body:JSON.stringify({
+                email: document.getElementById('email').value,
+                name: document.getElementById('cardname').value,
+                
+                
+            })  //JSON.stringify({'CardNumberElement':CardNumberElement})},
+     })
+      
+ .then(res => res.json())
+        
+       .then(payload => {
+           stripe.confirmCardPayment(payload.client_secret, {
+            payment_method:{card:CardNumberElement}
+           }).then(transStat => {
+               if(transStat.error){
+                window.location = "/cancel";
+                }
+               else{
+
+                const paymentStatus = document.querySelector('#paymentstatus');
+                paymentStatus.value = "Payment Success";
+                const paymentIdInput = document.querySelector('#payment');
+                paymentIdInput.value = payload.id;
+               
+               
+               
+                form.submit();   
+               
+                
+                //window.location = '/successlanding';
+               }
+
+           })
+
+
+
+
+
+
+
+
+
+        })
+        
+    })
+  
+</script>          
+
+    
+  
+          
+</body>
+</html>
+
